@@ -14,6 +14,9 @@ const badgeVariants = cva(
         destructive:
           "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
         outline: "text-foreground",
+        score: "rounded-full border-2 border-ink bg-secondary font-extrabold text-secondary-foreground shadow-pop-sm",
+        tag: "rounded-full border-2 border-ink bg-paper font-bold text-foreground",
+        kenya: "rounded-full border-2 border-ink bg-kenya font-extrabold text-kenya-foreground shadow-pop-sm",
       },
     },
     defaultVariants: {

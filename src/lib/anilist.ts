@@ -1,0 +1,201 @@
+import { queryOptions } from "@tanstack/react-query";
+
+const ENDPOINT = "https://graphql.anilist.co";
+
+export type AnimeCard = {
+  id: number;
+  title: { romaji: string | null; english: string | null };
+  coverImage: { extraLarge: string | null; large: string | null; color: string | null };
+  bannerImage: string | null;
+  averageScore: number | null;
+  genres: string[];
+  episodes: number | null;
+  seasonYear: number | null;
+  format: string | null;
+  status: string | null;
+};
+
+export type AnimeDetail = AnimeCard & {
+  description: string | null;
+  duration: number | null;
+  popularity: number | null;
+  studios: { nodes: { name: string }[] };
+  trailer: { id: string; site: string } | null;
+  nextAiringEpisode: { episode: number; airingAt: number } | null;
+  characters: {
+    edges: { role: string; node: { id: number; name: { full: string }; image: { large: string | null } } }[];
+  };
+  recommendations: { nodes: { mediaRecommendation: AnimeCard | null }[] };
+};
+
+const CARD_FIELDS = `
+  id
+  title { romaji english }
+  coverImage { extraLarge large color }
+  bannerImage
+  averageScore
+  genres
+  episodes
+  seasonYear
+  format
+  status
+`;
+
+async function anilist<T>(query: string, variables: Record<string, unknown> = {}): Promise<T> {
+  const res = await fetch(ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify({ query, variables }),
+  });
+  const json = (await res.json()) as { data?: T; errors?: { message: string }[] };
+  if (!res.ok || !json.data) {
+    throw new Error(json.errors?.[0]?.message ?? `Anime data unavailable (${res.status})`);
+  }
+  return json.data;
+}
+
+export type Season = "WINTER" | "SPRING" | "SUMMER" | "FALL";
+
+/** Anime seasons: Winter = Jan–Mar, Spring = Apr–Jun, Summer = Jul–Sep, Fall = Oct–Dec. */
+export function getSeason(date: Date): { season: Season; year: number } {
+  const m = date.getUTCMonth();
+  const season: Season = m < 3 ? "WINTER" : m < 6 ? "SPRING" : m < 9 ? "SUMMER" : "FALL";
+  return { season, year: date.getUTCFullYear() };
+}
+
+export function displayTitle(a: Pick<AnimeCard, "title">): string {
+  return a.title.english ?? a.title.romaji ?? "Untitled";
+}
+
+/** AniList descriptions contain light HTML (<br>, <i>, <b>); turn them into plain paragraphs. */
+export function cleanDescription(html: string | null): string[] {
+  if (!html) return [];
+  const text = html
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;|&apos;/g, "'")
+    .replace(/&amp;/g, "&")
+    .replace(/&mdash;/g, "—");
+  return text
+    .split(/\n+/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+}
+
+export const formatLabel: Record<string, string> = {
+  TV: "TV",
+  TV_SHORT: "TV Short",
+  MOVIE: "Movie",
+  SPECIAL: "Special",
+  OVA: "OVA",
+  ONA: "ONA",
+  MUSIC: "Music",
+};
+
+export const GENRES = [
+  "Action",
+  "Adventure",
+  "Comedy",
+  "Drama",
+  "Fantasy",
+  "Romance",
+  "Slice of Life",
+  "Sports",
+  "Sci-Fi",
+  "Mystery",
+  "Supernatural",
+  "Horror",
+  "Mecha",
+  "Music",
+  "Psychological",
+  "Thriller",
+] as const;
+
+export const SORTS = {
+  trending: { label: "Trending", value: "TRENDING_DESC" },
+  popular: { label: "Most popular", value: "POPULARITY_DESC" },
+  top: { label: "Top rated", value: "SCORE_DESC" },
+  airing: { label: "Airing now", value: "POPULARITY_DESC" },
+} as const;
+export type SortKey = keyof typeof SORTS;
+
+type HomeData = {
+  trending: { media: AnimeCard[] };
+  season: { media: AnimeCard[] };
+  top: { media: AnimeCard[] };
+};
+
+export const homeQuery = () => {
+  const { season, year } = getSeason(new Date());
+  return queryOptions({
+    queryKey: ["home", season, year],
+    staleTime: 5 * 60_000,
+    queryFn: () =>
+      anilist<HomeData>(
+        `query ($season: MediaSeason, $year: Int) {
+          trending: Page(perPage: 12) { media(type: ANIME, sort: TRENDING_DESC, isAdult: false) { ${CARD_FIELDS} } }
+          season: Page(perPage: 12) { media(type: ANIME, season: $season, seasonYear: $year, sort: POPULARITY_DESC, isAdult: false) { ${CARD_FIELDS} } }
+          top: Page(perPage: 10) { media(type: ANIME, sort: SCORE_DESC, isAdult: false) { ${CARD_FIELDS} } }
+        }`,
+        { season, year },
+      ),
+  });
+};
+
+export type BrowseParams = { q?: string | undefined; genre?: string | undefined; sort: SortKey; page: number };
+
+type BrowseData = {
+  Page: { pageInfo: { currentPage: number; hasNextPage: boolean }; media: AnimeCard[] };
+};
+
+export const browseQuery = (p: BrowseParams) =>
+  queryOptions({
+    queryKey: ["browse", p],
+    staleTime: 5 * 60_000,
+    queryFn: () =>
+      anilist<BrowseData>(
+        `query ($page: Int, $search: String, $genre: String, $sort: [MediaSort], $status: MediaStatus) {
+          Page(page: $page, perPage: 24) {
+            pageInfo { currentPage hasNextPage }
+            media(type: ANIME, search: $search, genre: $genre, sort: $sort, status: $status, isAdult: false) { ${CARD_FIELDS} }
+          }
+        }`,
+        {
+          page: p.page,
+          search: p.q || undefined,
+          genre: p.genre || undefined,
+          sort: p.q && p.sort === "trending" ? ["SEARCH_MATCH"] : [SORTS[p.sort].value],
+          status: p.sort === "airing" ? "RELEASING" : undefined,
+        },
+      ),
+  });
+
+export const animeQuery = (id: number) =>
+  queryOptions({
+    queryKey: ["anime", id],
+    staleTime: 10 * 60_000,
+    queryFn: async () => {
+      const data = await anilist<{ Media: AnimeDetail | null }>(
+        `query ($id: Int) {
+          Media(id: $id, type: ANIME) {
+            ${CARD_FIELDS}
+            description(asHtml: false)
+            duration
+            popularity
+            studios(isMain: true) { nodes { name } }
+            trailer { id site }
+            nextAiringEpisode { episode airingAt }
+            characters(sort: [ROLE, RELEVANCE], perPage: 8) {
+              edges { role node { id name { full } image { large } } }
+            }
+            recommendations(sort: RATING_DESC, perPage: 6) {
+              nodes { mediaRecommendation { ${CARD_FIELDS} } }
+            }
+          }
+        }`,
+        { id },
+      );
+      return data.Media;
+    },
+  });

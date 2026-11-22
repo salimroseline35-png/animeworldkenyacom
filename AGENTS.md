@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Anime data comes live from the public AniList GraphQL API via `src/lib/anilist.ts` (queryOptions used in route loaders + `useSuspenseQuery`); no backend or API key needed, so keep it keyless and client/SSR-safe.
+- Styling uses the sticker-pop design tokens and utilities in `src/styles.css` (`sticker`, `pop-hover`, button/badge variants); add new looks there, not as ad-hoc classes.
