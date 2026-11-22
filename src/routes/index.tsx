@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Flame, Sparkles, Trophy } from "lucide-react";
+import { ArrowRight, Flame, Sparkles, Trophy, Wand2 } from "lucide-react";
 
 import heroImage from "@/assets/hero-anime-nairobi.jpg";
 import { AnimeRow } from "@/components/site/anime-row";
@@ -63,6 +63,27 @@ function Home() {
             <SearchBox className="mt-5 max-w-xl" />
           </div>
         </div>
+      </section>
+
+      {/* AI matchmaker promo */}
+      <section className="mx-auto mt-8 max-w-6xl px-4">
+        <Link
+          to="/match"
+          className="sticker pop-hover flex flex-col gap-4 rounded-3xl bg-secondary p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6"
+        >
+          <div className="flex items-center gap-4">
+            <span className="sticker grid size-14 shrink-0 -rotate-6 place-items-center rounded-2xl bg-primary text-primary-foreground">
+              <Wand2 className="size-7" />
+            </span>
+            <div>
+              <h2 className="text-xl sm:text-2xl">Not sure what to watch?</h2>
+              <p className="font-bold">Tell our AI Matchmaker your mood and get 6 picks made for you.</p>
+            </div>
+          </div>
+          <span className="inline-flex shrink-0 items-center gap-1 self-start rounded-full border-2 border-ink bg-paper px-4 py-2 font-extrabold sm:self-auto">
+            Try it <ArrowRight className="size-4" />
+          </span>
+        </Link>
       </section>
 
       {/* Genres */}

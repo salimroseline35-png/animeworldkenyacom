@@ -199,3 +199,32 @@ export const animeQuery = (id: number) =>
       return data.Media;
     },
   });
+
+/**
+ * Look up several titles at once (one request, one alias per title).
+ * Titles AniList can't find are dropped; duplicates are removed.
+ * Runs in the browser.
+ */
+export async function resolveTitles(titles: string[]): Promise<(AnimeCard | null)[]> {
+  if (!titles.length) return [];
+  const vars = titles.map((_, i) => `$t${i}: String`).join(", ");
+  const fields = titles
+    .map((_, i) => `p${i}: Media(search: $t${i}, type: ANIME, isAdult: false) { ${CARD_FIELDS} }`)
+    .join("\n");
+  const variables = Object.fromEntries(titles.map((t, i) => [`t${i}`, t]));
+  const res = await fetch(ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify({ query: `query (${vars}) { ${fields} }`, variables }),
+  });
+  // A missing title makes AniList answer 404 with partial data, so read data either way.
+  const json = (await res.json().catch(() => null)) as { data?: Record<string, AnimeCard | null> | null } | null;
+  if (!json?.data) throw new Error(`Anime data unavailable (${res.status})`);
+  const seen = new Set<number>();
+  return titles.map((_, i) => {
+    const m = json.data?.[`p${i}`] ?? null;
+    if (!m || seen.has(m.id)) return null;
+    seen.add(m.id);
+    return m;
+  });
+}

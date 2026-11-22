@@ -17,6 +17,10 @@ describe("App routing", () => {
     expect(router.matchRoutes("/browse").at(-1)?.routeId).toBe("/browse");
   });
 
+  it("matches the matchmaker page", () => {
+    expect(router.matchRoutes("/match").at(-1)?.routeId).toBe("/match");
+  });
+
   it("matches an anime detail page", () => {
     expect(router.matchRoutes("/anime/21").at(-1)?.routeId).toBe("/anime/$id");
   });
