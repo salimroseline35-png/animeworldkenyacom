@@ -33,4 +33,5 @@ use the editor.
 - Anime data comes live from the public AniList GraphQL API via `src/lib/anilist.ts` (queryOptions used in route loaders + `useSuspenseQuery`); no backend or API key needed, so keep it keyless and client/SSR-safe.
 - Styling uses the sticker-pop design tokens and utilities in `src/styles.css` (`sticker`, `pop-hover`, button/badge variants); add new looks there, not as ad-hoc classes.
 - AI matchmaker: the model call lives server-side (`src/lib/matchmaker.server.ts` via `matchmaker.functions.ts`) and returns only titles + reasons; the browser then resolves titles against AniList (`resolveTitles`), because AniList blocks requests from the hosting server.
+- Blog post comments live in the Lovable Cloud `post_comments` table (public read + insert, no sign-in, length limits enforced in the database and `src/lib/comments.ts`), read and written from the browser.
 - Blog posts ("Latest Posts from Kenya") are static entries in `src/lib/posts.ts` with images in `src/assets/`; the homepage section and `/posts/$slug` page read from it, so adding a post needs no backend.

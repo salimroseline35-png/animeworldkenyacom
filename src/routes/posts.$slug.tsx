@@ -1,6 +1,7 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { ArrowLeft, CalendarDays, MessageCircleHeart, Search } from "lucide-react";
 
+import { PostComments } from "@/components/site/post-comments";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { formatPostDate, getPost, postExcerpt } from "@/lib/posts";
@@ -94,9 +95,14 @@ function PostPage() {
           <span className="sticker grid size-12 shrink-0 -rotate-6 place-items-center rounded-2xl bg-primary text-primary-foreground">
             <MessageCircleHeart className="size-6" />
           </span>
-          <p className="text-lg font-extrabold sm:text-xl">{post.outro}</p>
+          <p className="flex-1 text-lg font-extrabold sm:text-xl">{post.outro}</p>
+          <Button asChild variant="paper" className="hidden shrink-0 sm:inline-flex">
+            <a href="#comments">Comment</a>
+          </Button>
         </div>
       )}
+
+      <PostComments slug={post.slug} />
 
       <div className="mt-10 flex flex-wrap gap-3">
         <Button asChild variant="pop" size="xl">
