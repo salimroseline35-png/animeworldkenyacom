@@ -19,39 +19,47 @@ export type Post = {
 };
 
 export const POSTS: Post[] = [
-  {{
-  id: "best-anime-with-best-friend",
-  title: "Best Anime To Watch With Your Best Friend",
-  excerpt: "Grab your bestie, get some snacks, and press play. These are the best anime to watch together - full of laughs, tears, and unforgettable moments.",
-  date: "2026-11-23",
-  category: "Recommendations",
-  image: "https://images.unsplash.com/photo-1541562232579-512a21360020?w=800",
-  content: `
-## Best Anime To Watch With Your Best Friend
-
-Nothing beats watching anime with your best friend. The laughs hit different, the sad scenes hurt more, and you will talk about it for days after.
-
-Here are the best ones to watch together:
-
-### 1. Naruto & Naruto Shippuden
-The ultimate friendship anime. Naruto and Sasuke's bond
+  {
+    slug: "watch-epic-demon-slayer-fight-video",
+    title: "WATCH: The Most Epic Anime Fight Ever - Demon Slayer Will Give You Goosebumps",
+    date: "2026-11-23",
+    author: "Anime World Kenya",
+    image: top5Cover,
+    imageAlt: "Tanjiro fighting in Demon Slayer epic battle",
+    intro: "You HAVE to watch this fight. Watch the video here first: https://www.youtube.com/watch?v=ATJYac_dORs - Then read why it is so crazy below.",
+    list: ["Tanjiro vs Rui - The fight that broke the internet", "Nezuko saves Tanjiro - Best sister moment ever", "The animation is on another level", "The music + fight together = goosebumps", "If you haven't watched Demon Slayer, start TODAY"],
+    outro: "Did you watch the video? Rate this fight 1-10 in the comments. Share this with that friend who still hasn't watched Demon Slayer!",
+  },
+  {
+    slug: "best-anime-with-best-friend",
+    title: "Best Anime To Watch With Your Best Friend",
+    date: "2026-11-23",
+    author: "Anime World Kenya",
+    image: top5Cover,
+    imageAlt: "Best friends watching anime together and laughing",
+    intro: "Grab your bestie, get some snacks, and press play. These are the best anime to watch together - full of laughs, tears, and unforgettable moments.",
+    list: ["Naruto & Naruto Shippuden", "Demon Slayer", "One Piece", "Jujutsu Kaisen", "Haikyuu!!", "Spy x Family", "Attack on Titan"],
+    outro: "Pick one, buy some bhajia or smokies, put your phones on silent, and enjoy. Which one will you and your best friend watch first?",
+  },
+  {
     slug: "top-5-anime-every-kenyan-must-watch",
     title: "Top 5 Anime Every Kenyan Must Watch",
     date: "2026-11-23",
     author: "Anime World Kenya",
     image: top5Cover,
     imageAlt: "Kenyan friends cheering while watching anime together in a Nairobi living room",
-    intro: "Karibu! These are the top 5 anime we love in Kenya right now:",
+    intro: "Karibu! These are the top 5 anime we love in Kenya right now.",
     list: ["One Piece", "Naruto", "Attack on Titan", "Jujutsu Kaisen", "Frieren"],
     outro: "Which one is your number 1? Comment below!",
-  },  {
+  },
+  {
     slug: "best-anime-movies-to-watch-with-friends",
     title: "5 Best Anime Movies To Watch With Friends In Nairobi",
     date: "2026-11-24",
     author: "Anime World Kenya",
     image: top5Cover,
     imageAlt: "Friends watching anime movie together",
-    intro: "Karibu! Looking for a movie night idea? These 5 anime movies are perfect to watch with your friends in Nairobi - funny, emotional, and full of action.",
+    intro: "Karibu! Looking for a movie night idea? These 5 anime movies are perfect to watch with your friends in Nairobi",
     list: ["Your Name", "Spirited Away", "Demon Slayer: Mugen Train", "Jujutsu Kaisen 0", "A Silent Voice"],
     outro: "Which one will you watch first this weekend? Tell us in the comments!",
   },
@@ -69,7 +77,7 @@ export function getPost(slug: string): Post | undefined {
 
 /** One-line preview used on cards and in share previews. */
 export function postExcerpt(p: Post): string {
-  const list = p.list.length ? `${p.list.map((t, i) => `${i + 1}. ${t}`).join(" ")}.` : "";
+  const list = p.list?.length ? ` (${p.list.map((t, i) => `${i + 1}. ${t}`).join(" ")})` : "";
   return [p.intro, list, p.outro].filter(Boolean).join(" ");
 }
 
