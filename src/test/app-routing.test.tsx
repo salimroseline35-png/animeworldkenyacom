@@ -21,6 +21,10 @@ describe("App routing", () => {
     expect(router.matchRoutes("/match").at(-1)?.routeId).toBe("/match");
   });
 
+  it("matches a blog post page", () => {
+    expect(router.matchRoutes("/posts/top-5-anime-every-kenyan-must-watch").at(-1)?.routeId).toBe("/posts/$slug");
+  });
+
   it("matches an anime detail page", () => {
     expect(router.matchRoutes("/anime/21").at(-1)?.routeId).toBe("/anime/$id");
   });

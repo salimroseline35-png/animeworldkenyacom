@@ -5,6 +5,7 @@ import { ArrowRight, Flame, Sparkles, Trophy, Wand2 } from "lucide-react";
 import heroImage from "@/assets/hero-anime-nairobi.jpg";
 import { AnimeRow } from "@/components/site/anime-row";
 import { DataError } from "@/components/site/data-error";
+import { LatestPosts } from "@/components/site/latest-posts";
 import { SearchBox } from "@/components/site/search-box";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -85,6 +86,8 @@ function Home() {
           </span>
         </Link>
       </section>
+
+      <LatestPosts />
 
       {/* Genres */}
       <section className="mx-auto mt-10 max-w-6xl px-4">
