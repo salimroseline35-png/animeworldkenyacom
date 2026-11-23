@@ -29,6 +29,16 @@ export const POSTS: Post[] = [
     intro: "Karibu! These are the top 5 anime we love in Kenya right now:",
     list: ["One Piece", "Naruto", "Attack on Titan", "Jujutsu Kaisen", "Frieren"],
     outro: "Which one is your number 1? Comment below!",
+  },  {
+    slug: "best-anime-movies-to-watch-with-friends",
+    title: "5 Best Anime Movies To Watch With Friends In Nairobi",
+    date: "2026-11-24",
+    author: "Anime World Kenya",
+    image: top5Cover,
+    imageAlt: "Friends watching anime movie together",
+    intro: "Karibu! Looking for a movie night idea? These 5 anime movies are perfect to watch with your friends in Nairobi - funny, emotional, and full of action.",
+    list: ["Your Name", "Spirited Away", "Demon Slayer: Mugen Train", "Jujutsu Kaisen 0", "A Silent Voice"],
+    outro: "Which one will you watch first this weekend? Tell us in the comments!",
   },
 ];
 
