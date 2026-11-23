@@ -19,7 +19,22 @@ export type Post = {
 };
 
 export const POSTS: Post[] = [
-  {
+  {{
+  id: "best-anime-with-best-friend",
+  title: "Best Anime To Watch With Your Best Friend",
+  excerpt: "Grab your bestie, get some snacks, and press play. These are the best anime to watch together - full of laughs, tears, and unforgettable moments.",
+  date: "2026-11-23",
+  category: "Recommendations",
+  image: "https://images.unsplash.com/photo-1541562232579-512a21360020?w=800",
+  content: `
+## Best Anime To Watch With Your Best Friend
+
+Nothing beats watching anime with your best friend. The laughs hit different, the sad scenes hurt more, and you will talk about it for days after.
+
+Here are the best ones to watch together:
+
+### 1. Naruto & Naruto Shippuden
+The ultimate friendship anime. Naruto and Sasuke's bond
     slug: "top-5-anime-every-kenyan-must-watch",
     title: "Top 5 Anime Every Kenyan Must Watch",
     date: "2026-11-23",
