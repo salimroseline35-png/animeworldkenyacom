@@ -133,6 +133,30 @@ export const posts: Post[] = [
     outro: "Gojo vs Sukuna - who REALLY won? Debate in the comments!",
     videoUrl: "https://www.youtube.com/embed/Upb5LdhA7-M",
   },
+    {
+    slug: "one-piece-film-red-shanks-daughter",
+    title: "One Piece Film: Red - Why Shanks' Daughter Broke The Internet",
+    date: "2026-11-24",
+    author: "Anime World Kenya",
+    image: top5Cover,
+    imageAlt: "Luffy and Uta in One Piece Film Red",
+    intro: "Uta's songs, Shanks' secret, and Luffy's most emotional fight ever. WATCH the trailer below first, then read why this movie broke the internet.",
+    list: ["Uta is Shanks' daughter - The secret nobody expected", "Her songs are REAL bangers - Ado did magic", "Luffy vs Shanks moment - Most emotional scene", "The final fight with the whole crew together", "If you haven't watched Red, watch it TODAY"],
+    outro: "Have you watched One Piece Red? Which Uta song is your favourite? Tell us in the comments!",
+    videoUrl: "https://www.youtube.com/embed/9oD7TQDZcgs",
+  },
+  {
+    slug: "one-piece-gear-5-episodes-you-must-watch",
+    title: "One Piece Episodes You MUST Watch - Luffy Gear 5 Will Give You Goosebumps",
+    date: "2026-11-24",
+    author: "Anime World Kenya",
+    image: top5Cover,
+    imageAlt: "Luffy in Gear 5 laughing with white hair",
+    intro: "From Episode 1017 to 1071, this is the best One Piece run EVER. WATCH Gear 5 below first, then read why the whole world stopped for this.",
+    list: ["Episode 1017 - Luffy vs Kaido starts", "Episode 1044 - GEAR 5 IS HERE - Joy Boy is back!", "Episode 1062 - Luffy's dream moment", "Episode 1071 - The fight that broke the internet", "If you haven't watched One Piece, start TODAY"],
+    outro: "Did Gear 5 give you goosebumps? Rate it 1-10 in the comments and share with a One Piece fan!",
+    videoUrl: "https://www.youtube.com/embed/_G8pLhJm6d0",
+  },
 ];
 
 export function getPost(slug: string): Post | undefined {
