@@ -118,4 +118,19 @@ export const posts: Post[] = [
     imageAlt: "Eren Yeager with Titans behind him",
     intro: "Attack on Titan broke us! No anime has ever had plot twists like this. These 5 moments left Kenya speechless!",
     list: ["Eren's Basement Reveal", "Reiner Is The Armored Titan", "Eren Starts The Rumbling", "Levi vs Beast Titan", "Sasha's Death"],
-    outro: "Which AOT twist shocked you the most? No spoilers...
+    No spoilers...",
+        videoUrl: "https://www.youtube.com/embed/A75q2q5nW34",
+  },
+  {
+    slug: "top-5-jujutsu-kaisen-fights-that-are-pure-cinema",
+    title: "Top 5 Jujutsu Kaisen Fights That Are Pure Cinema",
+    date: "2026-11-24",
+    author: "Anime World Kenya",
+    image: top5Cover,
+    imageAlt: "Gojo Satoru with blindfold and purple Hollow Purple",
+    intro: "JJK fights are not fights, they are MOVIES! MAPPA went crazy with these 5 battles. Gojo, Sukuna, Yuji - pure cinema!",
+    list: ["Gojo vs Sukuna", "Yuji & Todo vs Mahito", "Gojo vs Toji", "Yuta vs Geto", "Megumi vs Toji"],
+    outro: "Gojo vs Sukuna - who REALLY won? Debate in the comments!",
+    videoUrl: "https://www.youtube.com/embed/Upb5LdhA7-M",
+  },
+];
