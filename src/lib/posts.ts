@@ -74,6 +74,18 @@ export const POSTS: Post[] = [
     list: ["Pain", "Madara Uchiha", "Eren Yeager", "Light Yagami", "Sukuna"],
     outro: "Which villain do you think was actually right? Comment below and defend your villain!",
   },
+    {
+    slug: "top-5-anime-villains-who-are-actually-right",
+    title: "Top 5 Anime Villains Who Are Actually Right",
+    date: "2026-11-24",
+    author: "Anime World Kenya",
+    image: top5Cover,
+    imageAlt: "Anime villains standing together looking powerful",
+    intro: "Madara wanted peace. Pain wanted to end war. Eren wanted freedom. Are these villains... or are they heroes?",
+    list: ["Pain", "Madara Uchiha", "Eren Yeager", "Light Yagami", "Sukuna"],
+    outro: "Which villain do you think was actually right? Comment below!",
+    videoUrl: "https://www.youtube.com/embed/6kI8VjwQ0xE",
+  },
 ];
 
 /** Newest first. */
