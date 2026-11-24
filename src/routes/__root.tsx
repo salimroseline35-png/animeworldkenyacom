@@ -91,6 +91,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    scripts: [
+      {
+        src: "https://www.googletagmanager.com/gtag/js?id=G-QHML14DB94",
+        async: true,
+      },
+      {
+        children: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QHML14DB94');`,
+      },
+    ],
     links: [
       {
         rel: "stylesheet",
@@ -127,6 +139,17 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+
+  // gtag.js only tracks the initial page load; send a page_view on each
+  // client-side navigation so all pages are counted.
+  useEffect(() => {
+    const unsubscribe = router.subscribe("onResolved", () => {
+      const gtag = (window as { gtag?: (...args: unknown[]) => void }).gtag;
+      gtag?.("event", "page_view", { page_path: window.location.pathname });
+    });
+    return unsubscribe;
+  }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>
