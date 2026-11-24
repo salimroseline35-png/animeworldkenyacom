@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Search, Sparkles } from "lucide-react";
+import { Newspaper, Search, Sparkles } from "lucide-react";
 
 export function SiteHeader() {
   const loading = useRouterState({ select: (s) => s.status === "pending" });
@@ -34,6 +34,14 @@ export function SiteHeader() {
           >
             <Sparkles className="size-4" />
             <span className="hidden sm:inline">AI</span> Match
+          </Link>
+          <Link
+            to="/posts"
+            aria-label="Blog"
+            className="sticker pop-hover inline-flex items-center gap-1.5 rounded-full bg-accent px-3 py-2 sm:px-4"
+          >
+            <Newspaper className="size-4" />
+            <span className="hidden sm:inline">Blog</span>
           </Link>
           <Link
             to="/browse"

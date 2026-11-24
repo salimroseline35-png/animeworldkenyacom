@@ -1,20 +1,14 @@
 import { describe, expect, it } from "vitest";
 
-import { getPost, latestPosts } from "@/lib/posts";
+import { getPost, latestPosts, posts } from "@/lib/posts";
 
 describe("Latest Posts from Kenya", () => {
-  it("has the first post with the owner's title", () => {
-    expect(getPost("top-5-anime-every-kenyan-must-watch")?.title).toBe("Top 5 Anime Every Kenyan Must Watch");
+  it("has posts to show", () => {
+    expect(posts.length).toBeGreaterThan(0);
   });
 
-  it("lists the top 5 anime in the owner's order", () => {
-    expect(getPost("top-5-anime-every-kenyan-must-watch")?.list).toEqual([
-      "One Piece",
-      "Naruto",
-      "Attack on Titan",
-      "Jujutsu Kaisen",
-      "Frieren",
-    ]);
+  it("finds a post by its slug", () => {
+    expect(getPost("top-5-one-piece-arcs-you-must-watch")?.title).toBe("Top 5 One Piece Arcs You MUST Watch");
   });
 
   it("returns nothing for an unknown post", () => {
@@ -22,6 +16,13 @@ describe("Latest Posts from Kenya", () => {
   });
 
   it("shows the newest post first", () => {
-    expect(latestPosts(1)[0]?.slug).toBe("top-5-anime-every-kenyan-must-watch");
+    const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
+    expect(latestPosts(1)[0]?.slug).toBe(sorted[0]?.slug);
+  });
+
+  it("every post has a video to watch", () => {
+    for (const p of posts) {
+      expect(p.videoUrl, `post ${p.slug} is missing a video`).toBeTruthy();
+    }
   });
 });

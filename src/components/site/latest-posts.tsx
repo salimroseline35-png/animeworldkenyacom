@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, CalendarDays, Newspaper } from "lucide-react";
+import { ArrowRight, CalendarDays, Newspaper, Play } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,13 +11,21 @@ export function LatestPosts() {
 
   return (
     <section className="mx-auto mt-14 max-w-6xl px-4" aria-labelledby="latest-posts-title">
-      <div className="mb-5">
-        <Badge variant="kenya" className="mb-2 gap-1">
-          <Newspaper className="size-3.5" /> Blog
-        </Badge>
-        <h2 id="latest-posts-title" className="text-2xl sm:text-3xl">
-          Latest Posts from <span className="text-kenya">Kenya</span>
-        </h2>
+      <div className="mb-5 flex items-end justify-between gap-4">
+        <div>
+          <Badge variant="kenya" className="mb-2 gap-1">
+            <Newspaper className="size-3.5" /> Blog
+          </Badge>
+          <h2 id="latest-posts-title" className="text-2xl sm:text-3xl">
+            Latest Blog Posts from <span className="text-kenya">Kenya</span>
+          </h2>
+        </div>
+        <Link
+          to="/posts"
+          className="inline-flex shrink-0 items-center gap-1 text-sm font-extrabold text-primary hover:underline"
+        >
+          See all posts <ArrowRight className="size-4" />
+        </Link>
       </div>
 
       <article className="sticker group grid overflow-hidden rounded-3xl bg-paper lg:grid-cols-[1.35fr_1fr]">
@@ -58,6 +66,25 @@ export function LatestPosts() {
         </div>
       </article>
 
+      {featured.videoUrl && (
+        <div className="sticker mt-5 overflow-hidden rounded-3xl bg-ink">
+          <div className="flex items-center gap-2 border-b-2 border-ink bg-secondary px-5 py-3">
+            <Play className="size-5" />
+            <p className="font-display text-base sm:text-lg">Watch the video</p>
+          </div>
+          <div className="aspect-video w-full">
+            <iframe
+              src={featured.videoUrl}
+              title={featured.title}
+              loading="lazy"
+              className="h-full w-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      )}
+
       {rest.length > 0 && (
         <div className="mt-5 grid gap-5 sm:grid-cols-2">
           {rest.map((p) => (
@@ -67,12 +94,19 @@ export function LatestPosts() {
               params={{ slug: p.slug }}
               className="sticker pop-hover flex items-center gap-4 rounded-2xl bg-paper p-3"
             >
-              <img
-                src={p.image}
-                alt=""
-                loading="lazy"
-                className="h-20 w-32 shrink-0 rounded-xl border-2 border-ink object-cover"
-              />
+              <div className="relative shrink-0">
+                <img
+                  src={p.image}
+                  alt=""
+                  loading="lazy"
+                  className="h-20 w-32 rounded-xl border-2 border-ink object-cover"
+                />
+                {p.videoUrl && (
+                  <span className="sticker absolute -top-2 -right-2 grid size-7 -rotate-6 place-items-center rounded-full bg-primary text-primary-foreground">
+                    <Play className="size-3.5" />
+                  </span>
+                )}
+              </div>
               <div className="min-w-0">
                 <p className="text-xs font-bold text-muted-foreground">{formatPostDate(p.date)}</p>
                 <p className="line-clamp-2 font-extrabold leading-snug">{p.title}</p>

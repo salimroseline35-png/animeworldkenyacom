@@ -1,4 +1,4 @@
-import top5Cover from "../assets/top5-cover.jpg";
+import top5Cover from "../assets/post-top-5-anime-kenya.jpg";
 export type Post = {
   slug: string;
   title: string;
@@ -118,8 +118,8 @@ export const posts: Post[] = [
     imageAlt: "Eren Yeager with Titans behind him",
     intro: "Attack on Titan broke us! No anime has ever had plot twists like this. These 5 moments left Kenya speechless!",
     list: ["Eren's Basement Reveal", "Reiner Is The Armored Titan", "Eren Starts The Rumbling", "Levi vs Beast Titan", "Sasha's Death"],
-    No spoilers...",
-        videoUrl: "https://www.youtube.com/embed/A75q2q5nW34",
+    outro: "Which Attack on Titan moment shocked you the most? No spoilers in the comments...",
+    videoUrl: "https://www.youtube.com/embed/A75q2q5nW34",
   },
   {
     slug: "top-5-jujutsu-kaisen-fights-that-are-pure-cinema",
@@ -134,3 +134,23 @@ export const posts: Post[] = [
     videoUrl: "https://www.youtube.com/embed/Upb5LdhA7-M",
   },
 ];
+
+export function getPost(slug: string): Post | undefined {
+  return posts.find((p) => p.slug === slug);
+}
+
+export function latestPosts(count: number): Post[] {
+  return [...posts].sort((a, b) => b.date.localeCompare(a.date)).slice(0, count);
+}
+
+export function formatPostDate(date: string): string {
+  return new Date(`${date}T00:00:00`).toLocaleDateString("en-KE", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+export function postExcerpt(post: Post): string {
+  return post.intro;
+}
