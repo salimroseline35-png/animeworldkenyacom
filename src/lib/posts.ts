@@ -157,6 +157,18 @@ export const posts: Post[] = [
     outro: "Did Gear 5 give you goosebumps? Rate it 1-10 in the comments and share with a One Piece fan!",
     videoUrl: "https://www.youtube.com/embed/_G8pLhJm6d0",
   },
+    {
+    slug: "demon-slayer-infinity-castle-movie",
+    title: "Demon Slayer Infinity Castle - The Movie Everyone Is Crying About",
+    date: "2026-11-24",
+    author: "Anime World Kenya",
+    image: top5Cover,
+    imageAlt: "Tanjiro fighting in Infinity Castle",
+    intro: "WATCH the trailer below first. This is the movie that made the whole world cry. Infinity Castle is here and it is INSANE.",
+    list: ["Tanjiro vs Akaza - The rematch everyone waited for", "The animation is on another level - Ufotable did magic", "Nezuko moment that will make you cry", "The music + fight together = goosebumps", "If you haven't watched Demon Slayer, start TODAY"],
+    outro: "Have you watched Infinity Castle? Rate it 1-10 in the comments!",
+    videoUrl: "https://www.youtube.com/embed/ATJYac_dORs",
+  },
 ];
 
 export function getPost(slug: string): Post | undefined {
