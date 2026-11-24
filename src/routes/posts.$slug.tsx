@@ -102,6 +102,20 @@ function PostPage() {
         </div>
       )}
 
+           {post.videoUrl && (
+        <div className="mt-8">
+          <h2 className="font-display text-xl sm:text-2xl mb-3">Watch the Video</h2>
+          <div className="overflow-hidden rounded-3xl bg-ink aspect-video w-full">
+            <iframe
+              src={post.videoUrl.replace("watch?v=", "embed/")}
+              title={post.title}
+              className="h-full w-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      )}
       <PostComments slug={post.slug} />
 
       <div className="mt-10 flex flex-wrap gap-3">
