@@ -169,6 +169,30 @@ export const posts: Post[] = [
     outro: "Have you watched Infinity Castle? Rate it 1-10 in the comments!",
     videoUrl: "https://www.youtube.com/embed/ATJYac_dORs",
   },
+    {
+    slug: "naruto-vs-sasuke-final-fight-episodes",
+    title: "Naruto vs Sasuke Final Fight - The Best Anime Fight Ever?",
+    date: "2026-11-24",
+    author: "Anime World Kenya",
+    image: top5Cover,
+    imageAlt: "Naruto vs Sasuke final valley fight",
+    intro: "WATCH the fight below first. Naruto vs Sasuke at the Valley of the End. This is the fight every anime fan MUST watch.",
+    list: ["Naruto vs Sasuke - Brothers, rivals, legends", "The final Rasengan vs Chidori clash", "The ending that made everyone cry", "Why this fight is still number 1 after 10 years", "If you haven't watched Naruto, start TODAY"],
+    outro: "Who won in your heart - Naruto or Sasuke? Tell us in the comments!",
+    videoUrl: "https://www.youtube.com/embed/5R6F-0e3n5w",
+  },
+  {
+    slug: "solo-leveling-season-2-episodes",
+    title: "Solo Leveling Season 2 - Jinwoo Is Now TOO Powerful!",
+    date: "2026-11-24",
+    author: "Anime World Kenya",
+    image: top5Cover,
+    imageAlt: "Sung Jinwoo with purple aura in Solo Leveling",
+    intro: "WATCH below first. Jinwoo is back and he is NOT playing. Season 2 has the craziest fights in anime right now.",
+    list: ["Jinwoo vs Ant King - The fight that broke the internet", "Arise! - The most iconic moment in anime", "Jinwoo's new shadow army is crazy", "The animation is pure fire", "If you haven't watched Solo Leveling, start TODAY"],
+    outro: "Is Jinwoo the strongest anime character now? Tell us in the comments!",
+    videoUrl: "https://www.youtube.com/embed/0kYvYpV8_8k",
+  },
 ];
 
 export function getPost(slug: string): Post | undefined {
