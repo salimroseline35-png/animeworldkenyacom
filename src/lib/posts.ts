@@ -1,3 +1,4 @@
+import top5Cover from "../assets/top5-cover.jpg";
 export type Post = {
   slug: string;
   title: string;
