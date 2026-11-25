@@ -18,7 +18,7 @@ export const posts: Post[] = [
     title: "Top 5 Demon Slayer Fights That Gave Us Goosebumps",
     date: "2026-11-24",
     author: "Anime World Kenya",
-    image: top5Cover,
+    image: "https://i.ytimg.com/vi/ATJYac-dORw/hqdefault.jpg",
     imageAlt: "Tanjiro and Nezuko from Demon Slayer",
     intro: "Demon Slayer is not just an anime, it is an experience. These 5 fights had the whole of Kenya shouting at their screens!",
     list: ["Tanjiro vs Rui", "Rengoku vs Akaza", "Tengen vs Gyutaro", "Muichiro vs Gyokko", "Tanjiro & Nezuko vs Daki"],
