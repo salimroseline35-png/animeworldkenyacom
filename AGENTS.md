@@ -31,7 +31,7 @@ use the editor.
 
 ## Project rules
 - Keep Vite's asset base at `/` for the root-hosted site so shared stylesheets and images load on every page.
-- Anime data comes live from the public AniList GraphQL API via `src/lib/anilist.ts` (queryOptions used in route loaders + `useSuspenseQuery`); no backend or API key needed, so keep it keyless and client/SSR-safe.
+- Anime data comes keylessly from AniList through `src/lib/anilist.ts` queryOptions and `useSuspenseQuery`; list queries start with saved popular metadata then refresh in the browser with bounded retries/timeouts, and unknown detail reads are browser-only because AniList blocks hosting-server IPs. Never fetch AniList during SSR; keep backups explicitly labelled and preserve cached picks on refresh errors.
 - Styling uses the sticker-pop design tokens and utilities in `src/styles.css` (`sticker`, `pop-hover`, button/badge variants); add new looks there, not as ad-hoc classes.
 - AI matchmaker: the model call lives server-side (`src/lib/matchmaker.server.ts` via `matchmaker.functions.ts`) and returns only titles + reasons; the browser then resolves titles against AniList (`resolveTitles`), because AniList blocks requests from the hosting server.
 - Blog post comments live in the Lovable Cloud `post_comments` table (public read + insert, no sign-in, length limits enforced in the database and `src/lib/comments.ts`), read and written from the browser.

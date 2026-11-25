@@ -20,7 +20,10 @@ export function AnimeCardTile({ anime, className }: { anime: AnimeCard; classNam
       <div className="sticker pop-hover relative aspect-[2/3] overflow-hidden rounded-2xl bg-muted">
         {anime.coverImage.large && (
           <img
-            src={anime.coverImage.extraLarge ?? anime.coverImage.large}
+            src={anime.coverImage.large}
+            srcSet={`${anime.coverImage.large} 230w, ${anime.coverImage.extraLarge ?? anime.coverImage.large} 460w`}
+            sizes="(max-width: 640px) 160px, 180px"
+            decoding="async"
             alt={`${title} poster`}
             loading="lazy"
             className="size-full object-cover transition-transform duration-300 group-hover:scale-105"

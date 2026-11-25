@@ -1,4 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
+import { fallbackBrowse, fallbackHome, POPULAR_ANIME } from "./anime-fallback";
 
 const ENDPOINT = "https://graphql.anilist.co";
 
@@ -41,17 +42,36 @@ const CARD_FIELDS = `
   status
 `;
 
-async function anilist<T>(query: string, variables: Record<string, unknown> = {}): Promise<T> {
+export const ANIME_TIMEOUT_MS = 12_000;
+export const ANIME_RETRIES = 2;
+const requestOptions = {
+  retry: ANIME_RETRIES,
+  retryDelay: (attempt: number) => Math.min(1000 * 2 ** attempt, 4000),
+  refetchOnWindowFocus: false,
+};
+
+async function anilist<T>(query: string, variables: Record<string, unknown> = {}, signal?: AbortSignal, allowPartial = false): Promise<T> {
+  const controller = new AbortController();
+  const abort = () => controller.abort();
+  if (signal?.aborted) abort();
+  signal?.addEventListener("abort", abort, { once: true });
+  const timeout = setTimeout(abort, ANIME_TIMEOUT_MS);
+  try {
   const res = await fetch(ENDPOINT, {
     method: "POST",
+    signal: controller.signal,
     headers: { "Content-Type": "application/json", Accept: "application/json" },
     body: JSON.stringify({ query, variables }),
   });
   const json = (await res.json()) as { data?: T; errors?: { message: string }[] };
-  if (!res.ok || !json.data) {
+  if ((!res.ok && !allowPartial) || !json.data) {
     throw new Error(json.errors?.[0]?.message ?? `Anime data unavailable (${res.status})`);
   }
   return json.data;
+  } finally {
+    clearTimeout(timeout);
+    signal?.removeEventListener("abort", abort);
+  }
 }
 
 export type Season = "WINTER" | "SPRING" | "SUMMER" | "FALL";
@@ -121,6 +141,7 @@ export const SORTS = {
 export type SortKey = keyof typeof SORTS;
 
 type HomeData = {
+  fallback?: boolean;
   trending: { media: AnimeCard[] };
   season: { media: AnimeCard[] };
   top: { media: AnimeCard[] };
@@ -129,9 +150,12 @@ type HomeData = {
 export const homeQuery = () => {
   const { season, year } = getSeason(new Date());
   return queryOptions({
+    ...requestOptions,
     queryKey: ["home", season, year],
+    initialData: fallbackHome,
+    initialDataUpdatedAt: 0,
     staleTime: 5 * 60_000,
-    queryFn: () =>
+    queryFn: ({ signal }) =>
       anilist<HomeData>(
         `query ($season: MediaSeason, $year: Int) {
           trending: Page(perPage: 12) { media(type: ANIME, sort: TRENDING_DESC, isAdult: false) { ${CARD_FIELDS} } }
@@ -139,6 +163,7 @@ export const homeQuery = () => {
           top: Page(perPage: 10) { media(type: ANIME, sort: SCORE_DESC, isAdult: false) { ${CARD_FIELDS} } }
         }`,
         { season, year },
+        signal,
       ),
   });
 };
@@ -146,14 +171,18 @@ export const homeQuery = () => {
 export type BrowseParams = { q?: string | undefined; genre?: string | undefined; sort: SortKey; page: number };
 
 type BrowseData = {
+  fallback?: boolean;
   Page: { pageInfo: { currentPage: number; hasNextPage: boolean }; media: AnimeCard[] };
 };
 
 export const browseQuery = (p: BrowseParams) =>
   queryOptions({
+    ...requestOptions,
     queryKey: ["browse", p],
+    initialData: () => fallbackBrowse(p),
+    initialDataUpdatedAt: 0,
     staleTime: 5 * 60_000,
-    queryFn: () =>
+    queryFn: ({ signal }) =>
       anilist<BrowseData>(
         `query ($page: Int, $search: String, $genre: String, $sort: [MediaSort], $status: MediaStatus) {
           Page(page: $page, perPage: 24) {
@@ -168,14 +197,18 @@ export const browseQuery = (p: BrowseParams) =>
           sort: p.q && p.sort === "trending" ? ["SEARCH_MATCH"] : [SORTS[p.sort].value],
           status: p.sort === "airing" ? "RELEASING" : undefined,
         },
+        signal,
       ),
   });
 
 export const animeQuery = (id: number) =>
   queryOptions({
+    ...requestOptions,
     queryKey: ["anime", id],
+    initialData: () => POPULAR_ANIME.find((a) => a.id === id),
+    initialDataUpdatedAt: 0,
     staleTime: 10 * 60_000,
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
       const data = await anilist<{ Media: AnimeDetail | null }>(
         `query ($id: Int) {
           Media(id: $id, type: ANIME) {
@@ -195,6 +228,7 @@ export const animeQuery = (id: number) =>
           }
         }`,
         { id },
+        signal,
       );
       return data.Media;
     },
@@ -212,17 +246,26 @@ export async function resolveTitles(titles: string[]): Promise<(AnimeCard | null
     .map((_, i) => `p${i}: Media(search: $t${i}, type: ANIME, isAdult: false) { ${CARD_FIELDS} }`)
     .join("\n");
   const variables = Object.fromEntries(titles.map((t, i) => [`t${i}`, t]));
-  const res = await fetch(ENDPOINT, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
-    body: JSON.stringify({ query: `query (${vars}) { ${fields} }`, variables }),
-  });
-  // A missing title makes AniList answer 404 with partial data, so read data either way.
-  const json = (await res.json().catch(() => null)) as { data?: Record<string, AnimeCard | null> | null } | null;
-  if (!json?.data) throw new Error(`Anime data unavailable (${res.status})`);
+  let data: Record<string, AnimeCard | null> | undefined;
+  for (let attempt = 0; attempt <= ANIME_RETRIES; attempt++) {
+    try {
+      // Missing titles may return 404 with valid partial data.
+      data = await anilist<Record<string, AnimeCard | null>>(`query (${vars}) { ${fields} }`, variables, undefined, true);
+      break;
+    } catch (error) {
+      if (attempt === ANIME_RETRIES) {
+        const saved = titles.map((title) => POPULAR_ANIME.find((a) =>
+          [a.title.english, a.title.romaji].some((t) => t?.toLowerCase() === title.toLowerCase())) ?? null);
+        if (!saved.some(Boolean)) throw error;
+        data = Object.fromEntries(saved.map((a, i) => [`p${i}`, a]));
+      } else {
+        await new Promise((resolve) => setTimeout(resolve, requestOptions.retryDelay(attempt)));
+      }
+    }
+  }
   const seen = new Set<number>();
   return titles.map((_, i) => {
-    const m = json.data?.[`p${i}`] ?? null;
+    const m = data?.[`p${i}`] ?? null;
     if (!m || seen.has(m.id)) return null;
     seen.add(m.id);
     return m;

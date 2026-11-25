@@ -3,6 +3,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 import { AnimeCardTile } from "@/components/site/anime-card";
+import { AnimeLoadStatus } from "@/components/site/anime-load-status";
 import { DataError } from "@/components/site/data-error";
 import { SearchBox } from "@/components/site/search-box";
 import { Button } from "@/components/ui/button";
@@ -44,12 +45,13 @@ export const Route = createFileRoute("/browse")({
     ],
   }),
   errorComponent: DataError,
+  notFoundComponent: DataError,
   component: Browse,
 });
 
 function Browse() {
   const search = Route.useSearch();
-  const { data } = useSuspenseQuery(browseQuery(search));
+  const { data, isFetching, isError, refetch } = useSuspenseQuery(browseQuery(search));
   const { media, pageInfo } = data.Page;
 
   const heading = search.q
@@ -116,10 +118,12 @@ function Browse() {
         )}
       </div>
 
+      <AnimeLoadStatus fetching={isFetching} fallback={Boolean(data.fallback)} failed={isError} retry={() => { void refetch(); }} />
+
       {media.length === 0 ? (
         <div className="sticker mt-8 rounded-3xl bg-paper p-10 text-center">
-          <p className="font-display text-2xl">Nothing found!</p>
-          <p className="mt-2 text-muted-foreground">Try another name or remove a filter.</p>
+          <p className="font-display text-2xl">{isFetching ? "Loading anime…" : "Nothing found!"}</p>
+          <p className="mt-2 text-muted-foreground">{data.fallback ? "No saved picks match these filters. Try again for live results or remove a filter." : "Try another name or remove a filter."}</p>
         </div>
       ) : (
         <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">

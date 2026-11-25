@@ -1,8 +1,10 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Link, createFileRoute, notFound } from "@tanstack/react-router";
+import { ClientOnly, Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { ArrowLeft, CalendarDays, Clock, Clapperboard, Heart, Star, Tv } from "lucide-react";
 
-import { AnimeCardTile } from "@/components/site/anime-card";
+import { AnimeCardTile, AnimeCardSkeleton } from "@/components/site/anime-card";
+import { AnimeLoadStatus } from "@/components/site/anime-load-status";
+import { POPULAR_ANIME } from "@/lib/anime-fallback";
 import { DataError } from "@/components/site/data-error";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,12 +14,21 @@ export const Route = createFileRoute("/anime/$id")({
   loader: async ({ context, params }) => {
     const id = Number(params.id);
     if (!Number.isInteger(id) || id <= 0) throw notFound();
+    // AniList blocks hosting-server IPs. Unknown titles load only in the browser.
+    if (typeof window === "undefined") return POPULAR_ANIME.find((a) => a.id === id);
     const anime = await context.queryClient.ensureQueryData(animeQuery(id));
     if (!anime) throw notFound();
     return anime;
   },
   head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [{ title: "Anime — Anime World Kenya" }] };
+    if (!loaderData) return { meta: [
+      { title: "Anime details — Anime World Kenya" },
+      { name: "description", content: "Discover anime stories, trailers and recommendations on Anime World Kenya." },
+      { property: "og:title", content: "Anime details — Anime World Kenya" },
+      { property: "og:description", content: "Discover anime stories, trailers and recommendations on Anime World Kenya." },
+      { property: "og:type", content: "video.tv_show" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] };
     const title = `${displayTitle(loaderData)} — Anime World Kenya`;
     const desc =
       cleanDescription(loaderData.description)[0]?.slice(0, 155) ??
@@ -52,7 +63,7 @@ export const Route = createFileRoute("/anime/$id")({
       </Button>
     </div>
   ),
-  component: AnimePage,
+  component: () => <ClientOnly fallback={<div className="mx-auto max-w-6xl px-4 pt-8" role="status"><p className="mb-4 font-bold">Loading anime…</p><div className="w-40"><AnimeCardSkeleton /></div></div>}><AnimePage /></ClientOnly>,
 });
 
 const statusLabel: Record<string, string> = {
@@ -65,7 +76,7 @@ const statusLabel: Record<string, string> = {
 
 function AnimePage() {
   const { id } = Route.useParams();
-  const { data } = useSuspenseQuery(animeQuery(Number(id)));
+  const { data, dataUpdatedAt, isFetching, isError, refetch } = useSuspenseQuery(animeQuery(Number(id)));
   if (!data) return null;
   const a = data;
   const title = displayTitle(a);
@@ -164,6 +175,8 @@ function AnimePage() {
             )}
           </div>
         </div>
+
+        <AnimeLoadStatus fetching={isFetching} fallback={dataUpdatedAt === 0} failed={isError} retry={() => { void refetch(); }} />
 
         {facts.length > 0 && (
           <dl className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-5">

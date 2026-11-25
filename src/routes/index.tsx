@@ -4,6 +4,7 @@ import { ArrowRight, Flame, Sparkles, Trophy, Wand2 } from "lucide-react";
 
 import heroImage from "@/assets/hero-anime-nairobi.jpg";
 import { AnimeRow } from "@/components/site/anime-row";
+import { AnimeLoadStatus } from "@/components/site/anime-load-status";
 import { DataError } from "@/components/site/data-error";
 import { LatestPosts } from "@/components/site/latest-posts";
 import { SearchBox } from "@/components/site/search-box";
@@ -31,13 +32,14 @@ export const Route = createFileRoute("/")({
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(homeQuery()),
   errorComponent: DataError,
+  notFoundComponent: DataError,
   component: Home,
 });
 
 const seasonName = { WINTER: "Winter", SPRING: "Spring", SUMMER: "Summer", FALL: "Fall" } as const;
 
 function Home() {
-  const { data } = useSuspenseQuery(homeQuery());
+  const { data, isFetching, isError, refetch } = useSuspenseQuery(homeQuery());
   const { season, year } = getSeason(new Date());
 
   return (
@@ -107,6 +109,9 @@ function Home() {
         </div>
       </section>
 
+      <div className="mx-auto max-w-6xl px-4">
+        <AnimeLoadStatus fetching={isFetching} fallback={Boolean(data.fallback)} failed={isError} retry={() => { void refetch(); }} />
+      </div>
       <AnimeRow
         title="Trending right now"
         kicker={
