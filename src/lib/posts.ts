@@ -1,216 +1,202 @@
-import top5Cover from "../assets/post-top-5-anime-kenya.jpg";
-export type Post = {
-  slug: string;
-  title: string;
-  date: string;
-  author: string;
-  image: string;
-  imageAlt: string;
-  intro: string;
-  list: string[];
-  outro: string;
-  videoUrl?: string;
-};
-
-export const posts: Post[] = [
+export const POSTS = [
   {
-    slug: "top-5-demon-slayer-fights",
+    slug: "demon-slayer-fights",
     title: "Top 5 Demon Slayer Fights That Gave Us Goosebumps",
     date: "2026-11-24",
     author: "Anime World Kenya",
-    image: "https://i.ytimg.com/vi/ATJYac-dORw/hqdefault.jpg",
-    imageAlt: "Tanjiro and Nezuko from Demon Slayer",
-    intro: "Demon Slayer is not just an anime, it is an experience. These 5 fights had the whole of Kenya shouting at their screens!",
-    list: ["Tanjiro vs Rui", "Rengoku vs Akaza", "Tengen vs Gyutaro", "Muichiro vs Gyokko", "Tanjiro & Nezuko vs Daki"],
-    outro: "Which Demon Slayer fight is your number 1? Comment below!",
-    videoUrl: "https://www.youtube.com/embed/ATJYac_dORw",
+    intro: "Demon Slayer is not just an anime, it is a full experience.",
+    body: "From Tanjiro vs Rui to the Infinity Castle, these fights made us scream in our houses in Kisumu and Nairobi. The animation, the music, the emotion - no other anime does it like this.",
+    tags: ["Demon Slayer", "Top 5"],
+    video: "https://www.youtube.com/embed/ATJYac_dORw"
   },
   {
-    slug: "best-anime-to-watch-with-your-friend",
+    slug: "best-anime-with-friends",
     title: "Best Anime To Watch With Your Friend",
     date: "2026-11-24",
     author: "Anime World Kenya",
-    image: "https://i.ytimg.com/vi/9bZkp7q19f0/hqdefault.jpg",
-    imageAlt: "Friends watching anime together and laughing",
-    intro: "Anime is 10x better with your best friend! These shows will have you both laughing, crying and shouting together.",
-    list: ["Haikyuu", "One Piece", "Spy x Family", "Jujutsu Kaisen", "Naruto"],
-    outro: "Tag that one friend you always watch anime with!",
-    videoUrl: "https://www.youtube.com/embed/9bZkp7q19f0",
+    intro: "Watching anime alone is good, but with your best friend? 10x better!",
+    body: "Haikyuu, Jujutsu Kaisen, and Spy x Family are perfect for group watch. Bring popcorn, bring sodas, and get ready to argue about who is the best character.",
+    tags: ["Friends", "Recommendations"],
+    video: "https://www.youtube.com/embed/5R6x4f1r-7A"
   },
   {
-    slug: "top-5-anime-every-kenyan-should-watch",
+    slug: "top-5-anime-every-kenyan",
     title: "Top 5 Anime Every Kenyan Should Watch",
     date: "2026-11-24",
     author: "Anime World Kenya",
-    image: "https://i.ytimg.com/vi/d6kBeJhyvc/hqdefault.jpg",
-    imageAlt: "Popular anime characters collage",
-    intro: "If you live in Kenya and you have not watched these 5 anime, you are missing out! Start here, thank us later.",
-    list: ["Naruto", "Attack on Titan", "Demon Slayer", "One Piece", "Death Note"],
-    outro: "How many of these have you watched? Be honest in the comments!",
-    videoUrl: "https://www.youtube.com/embed/d6kBeJjhvyc",
+    intro: "If you live in Kenya and you love anime, you MUST watch these 5.",
+    body: "Naruto teaches never give up. One Piece teaches friendship. Attack on Titan teaches freedom. These stories feel like our own hustle in Kenya.",
+    tags: ["Kenya", "Top 5"],
+    video: "https://www.youtube.com/embed/OvLx2I09eXk"
   },
   {
-    slug: "top-5-best-anime-movies-of-all-time",
+    slug: "top-5-anime-movies",
     title: "Top 5 Best Anime Movies Of All Time",
     date: "2026-11-24",
     author: "Anime World Kenya",
-    image: "https://i.ytimg.com/vi/xU47hriunK-Q/hqdefault.jpg",
-    imageAlt: "Anime movie poster with beautiful sky",
-    intro: "Forget Hollywood! These 5 anime movies will make you cry, smile and think for days. Perfect for movie night in Nairobi!",
-    list: ["Your Name", "Spirited Away", "A Silent Voice", "Demon Slayer Mugen Train", "Jujutsu Kaisen 0"],
-    outro: "Which anime movie made YOU cry the most?",
-    videoUrl: "https://www.youtube.com/embed/xU47nhruN-Q",
+    intro: "Some anime movies are better than Hollywood movies!",
+    body: "Your Name, Spirited Away, A Silent Voice, Jujutsu Kaisen 0, and Demon Slayer Mugen Train. If you have not watched these, you are missing out big time.",
+    tags: ["Movies", "Top 5"],
+    video: "https://www.youtube.com/embed/So8ZITpWcXk"
   },
   {
-    slug: "top-5-anime-villains-who-are-actually-right",
+    slug: "top-5-anime-villains-right",
     title: "Top 5 Anime Villains Who Are Actually Right",
     date: "2026-11-24",
     author: "Anime World Kenya",
-    image: "https://i.ytimg.com/vi/6kI8VjWQ0xE/hqdefault.jpg",
-    imageAlt: "Anime villains standing together looking powerful",
-    intro: "Madara wanted peace. Pain wanted to end war. Eren wanted freedom. Are these villains... or are they heroes?",
-    list: ["Pain", "Madara Uchiha", "Eren Yeager", "Light Yagami", "Sukuna"],
-    outro: "Which villain do you think was actually right? Comment below and defend your villain!",
-    videoUrl: "https://www.youtube.com/embed/6kI8VjwQ0xE",
+    intro: "Sometimes the villain makes more sense than the hero!",
+    body: "Pain from Naruto, Eren Yeager, Light Yagami - they wanted to change a broken world. Were they wrong? Or were they just too honest?",
+    tags: ["Villains", "Top 5"],
+    video: "https://www.youtube.com/embed/J2rS2dN8z-8"
   },
   {
-    slug: "top-5-naruto-moments-that-broke-our-hearts",
+    slug: "top-5-naruto-moments",
     title: "Top 5 Naruto Moments That Broke Our Hearts",
     date: "2026-11-24",
     author: "Anime World Kenya",
-    image: "https://i.ytimg.com/vi/-G8qbkZXRA/hqdefault.jpg",
-    imageAlt: "Naruto Uzumaki looking sad and determined",
-    intro: "Naruto made us laugh, made us cry, made us believe. These 5 moments had the whole of Kenya in tears - especially number 1!",
-    list: ["Jiraiya's Death", "Naruto Meets His Mother Kushina", "Itachi's Truth Revealed", "Hinata Confesses to Naruto", "Naruto Becomes Hokage"],
-    outro: "Which Naruto moment made YOU cry? Tell us in the comments!",
-    videoUrl: "https://www.youtube.com/embed/-G9BqkgZXRA",
+    intro: "Naruto is the anime that raised all of us in Kenya.",
+    body: "Jiraiya's death, Naruto meeting his mother, Itachi's truth, Lee vs Gaara - we cried like babies. Naruto taught us never to give up, even when life is hard.",
+    tags: ["Naruto", "Top 5"],
+    video: "https://www.youtube.com/embed/bL3M2k5tT0E"
   },
   {
-    slug: "top-5-one-piece-arcs-you-must-watch",
-    title: "Top 5 One Piece Arcs You MUST Watch",
-    date: "2026-11-24",
+    slug: "one-piece-kenya-hype",
+    title: "Why One Piece Is The Best Anime For Kenyans",
+    date: "2026-11-25",
     author: "Anime World Kenya",
-    image: "https://i.ytimg.com/vi/WCb13bVGE0/hqdefault.jpg",
-    imageAlt: "Luffy and Straw Hat crew sailing on Thousand Sunny",
-    intro: "1000+ episodes and still the best anime ever? These 5 arcs prove why One Piece is KING. If you haven't watched these, you haven't watched One Piece!",
-    list: ["Marineford War", "Enies Lobby", "Wano Country", "Water 7", "Dressrosa"],
-    outro: "What is your favourite One Piece arc? Luffy fans, defend your arc!",
-    videoUrl: "https://www.youtube.com/embed/MCb13lbVGE0",
+    intro: "1000+ episodes and still we are not tired!",
+    body: "Luffy is like a Kenyan hustler - he never gives up on his dream. The crew is family. If you start One Piece today, you will be hooked for life.",
+    tags: ["One Piece"],
+    video: "https://www.youtube.com/embed/S8_YwFLCh4U"
   },
   {
-    slug: "top-5-solo-leveling-fights-that-broke-the-internet",
-    title: "Top 5 Solo Leveling Fights That Broke The Internet",
-    date: "2026-11-24",
+    slug: "attack-on-titan-ending-explained",
+    title: "Attack On Titan Ending Explained - Did Eren Do Right?",
+    date: "2026-11-25",
     author: "Anime World Kenya",
-    image: "https://i.ytimg.com/vi/91M02WZs7n6o/hqdefault.jpg",
-    imageAlt: "Sung Jinwoo with purple aura and shadow army",
-    intro: "Sung Jinwoo went from weakest hunter to SHADOW MONARCH! These 5 fights had TikTok, YouTube and all of Kenya going crazy!",
-    list: ["Jinwoo vs Igris", "Jinwoo vs Ant King Beru", "Jinwoo vs Demon King Baran", "Jinwoo vs Job-Change Knights", "Jinwoo vs Kamish"],
-    outro: "Which Jinwoo fight is the GOAT? Arise and comment below!",
-    videoUrl: "https://www.youtube.com/embed/91M9W2hSn7o",
+    intro: "The ending broke the whole internet!",
+    body: "Eren wanted freedom for his friends, but at what cost? Let's break down the final episode in simple words every fan can understand.",
+    tags: ["Attack on Titan"],
+    video: "https://www.youtube.com/embed/MGRm4IzK1SQ"
   },
   {
-    slug: "top-5-attack-on-titan-moments-that-shocked-everyone",
-    title: "Top 5 Attack On Titan Moments That Shocked Everyone",
-    date: "2026-11-24",
+    slug: "jujutsu-kaisen-gojo-vs-sukuna",
+    title: "Gojo Vs Sukuna - The Fight That Shook Anime",
+    date: "2026-11-25",
     author: "Anime World Kenya",
-    image: "https://i.ytimg.com/vi/A75qZ6nN34A/hqdefault.jpg",
-    imageAlt: "Eren Yeager with Titans behind him",
-    intro: "Attack on Titan broke us! No anime has ever had plot twists like this. These 5 moments left Kenya speechless!",
-    list: ["Eren's Basement Reveal", "Reiner Is The Armored Titan", "Eren Starts The Rumbling", "Levi vs Beast Titan", "Sasha's Death"],
-    outro: "Which Attack on Titan moment shocked you the most? No spoilers in the comments...",
-    videoUrl: "https://www.youtube.com/embed/A75q2q5nW34",
+    intro: "The strongest vs the King of Curses!",
+    body: "Gojo vs Sukuna was not just a fight, it was history. Domain Expansion, Hollow Purple, Mahoraga - this fight had everything.",
+    tags: ["Jujutsu Kaisen"],
+    video: "https://www.youtube.com/embed/UPR5w3-4z-o"
   },
   {
-    slug: "top-5-jujutsu-kaisen-fights-that-are-pure-cinema",
-    title: "Top 5 Jujutsu Kaisen Fights That Are Pure Cinema",
-    date: "2026-11-24",
+    slug: "solo-leveling-sung-jinwoo",
+    title: "Solo Leveling: Why Sung Jinwoo Is The Coolest MC Ever",
+    date: "2026-11-25",
     author: "Anime World Kenya",
-    image: "https://i.ytimg.com/vi/Upb5LdhA7-M/hqdefault.jpg",
-    imageAlt: "Gojo Satoru with blindfold and purple Hollow Purple",
-    intro: "JJK fights are not fights, they are MOVIES! MAPPA went crazy with these 5 battles. Gojo, Sukuna, Yuji - pure cinema!",
-    list: ["Gojo vs Sukuna", "Yuji & Todo vs Mahito", "Gojo vs Toji", "Yuta vs Geto", "Megumi vs Toji"],
-    outro: "Gojo vs Sukuna - who REALLY won? Debate in the comments!",
-    videoUrl: "https://www.youtube.com/embed/Upb5LdhA7-M",
-  },
-    {
-    slug: "one-piece-film-red-shanks-daughter",
-    title: "One Piece Film: Red - Why Shanks' Daughter Broke The Internet",
-    date: "2026-11-24",
-    author: "Anime World Kenya",
-    image: "https://i.ytimg.com/vi/9oD7TQD2cgs/hqdefault.jpg",
-    imageAlt: "Luffy and Uta in One Piece Film Red",
-    intro: "Uta's songs, Shanks' secret, and Luffy's most emotional fight ever. WATCH the trailer below first, then read why this movie broke the internet.",
-    list: ["Uta is Shanks' daughter - The secret nobody expected", "Her songs are REAL bangers - Ado did magic", "Luffy vs Shanks moment - Most emotional scene", "The final fight with the whole crew together", "If you haven't watched Red, watch it TODAY"],
-    outro: "Have you watched One Piece Red? Which Uta song is your favourite? Tell us in the comments!",
-    videoUrl: "https://www.youtube.com/embed/9oD7TQDZcgs",
+    intro: "From weakest hunter to Shadow Monarch!",
+    body: "Sung Jinwoo started as nobody. Now he is the strongest. His glow-up is the biggest motivation for every Kenyan youth hustling.",
+    tags: ["Solo Leveling"],
+    video: "https://www.youtube.com/embed/YvGSK8mI0YQ"
   },
   {
-    slug: "one-piece-gear-5-episodes-you-must-watch",
-    title: "One Piece Episodes You MUST Watch - Luffy Gear 5 Will Give You Goosebumps",
-    date: "2026-11-24",
+    slug: "dragon-ball-z-goku-kenya",
+    title: "Dragon Ball Z: Why Goku Is Still The GOAT",
+    date: "2026-11-25",
     author: "Anime World Kenya",
-    image: "https://i.ytimg.com/vi/G8pLhJm6dO/hqdefault.jpg",
-    imageAlt: "Luffy in Gear 5 laughing with white hair",
-    intro: "From Episode 1017 to 1071, this is the best One Piece run EVER. WATCH Gear 5 below first, then read why the whole world stopped for this.",
-    list: ["Episode 1017 - Luffy vs Kaido starts", "Episode 1044 - GEAR 5 IS HERE - Joy Boy is back!", "Episode 1062 - Luffy's dream moment", "Episode 1071 - The fight that broke the internet", "If you haven't watched One Piece, start TODAY"],
-    outro: "Did Gear 5 give you goosebumps? Rate it 1-10 in the comments and share with a One Piece fan!",
-    videoUrl: "https://www.youtube.com/embed/_G8pLhJm6d0",
-  },
-    {
-    slug: "demon-slayer-infinity-castle-movie",
-    title: "Demon Slayer Infinity Castle - The Movie Everyone Is Crying About",
-    date: "2026-11-24",
-    author: "Anime World Kenya",
-    image: "https://i.ytimg.com/vi/ATJYac-dORs/hqdefault.jpg",
-    imageAlt: "Tanjiro fighting in Infinity Castle",
-    intro: "WATCH the trailer below first. This is the movie that made the whole world cry. Infinity Castle is here and it is INSANE.",
-    list: ["Tanjiro vs Akaza - The rematch everyone waited for", "The animation is on another level - Ufotable did magic", "Nezuko moment that will make you cry", "The music + fight together = goosebumps", "If you haven't watched Demon Slayer, start TODAY"],
-    outro: "Have you watched Infinity Castle? Rate it 1-10 in the comments!",
-    videoUrl: "https://www.youtube.com/embed/ATJYac_dORs",
-  },
-    {
-    slug: "naruto-vs-sasuke-final-fight-episodes",
-    title: "Naruto vs Sasuke Final Fight - The Best Anime Fight Ever?",
-    date: "2026-11-24",
-    author: "Anime World Kenya",
-    image: "https://i.ytimg.com/vi/5R6F-0e3n5w/hqdefault.jpg",
-    imageAlt: "Naruto vs Sasuke final valley fight",
-    intro: "WATCH the fight below first. Naruto vs Sasuke at the Valley of the End. This is the fight every anime fan MUST watch.",
-    list: ["Naruto vs Sasuke - Brothers, rivals, legends", "The final Rasengan vs Chidori clash", "The ending that made everyone cry", "Why this fight is still number 1 after 10 years", "If you haven't watched Naruto, start TODAY"],
-    outro: "Who won in your heart - Naruto or Sasuke? Tell us in the comments!",
-    videoUrl: "https://www.youtube.com/embed/5R6F-0e3n5w",
+    intro: "We grew up watching Goku on TV!",
+    body: "Goku vs Vegeta, Goku vs Frieza, Goku vs Cell - every Kenyan kid knows Kamehameha! Dragon Ball Z is the father of all anime.",
+    tags: ["Dragon Ball"],
+    video: "https://www.youtube.com/embed/yWgWhu5W9Lk"
   },
   {
-    slug: "solo-leveling-season-2-episodes",
-    title: "Solo Leveling Season 2 - Jinwoo Is Now TOO Powerful!",
-    date: "2026-11-24",
+    slug: "my-hero-academia-deku",
+    title: "My Hero Academia: Deku's Journey Will Make You Cry",
+    date: "2026-11-25",
     author: "Anime World Kenya",
-    image: "https://i.ytimg.com/vi/OKfVfpVe-8x/hqdefault.jpg",
-    imageAlt: "Sung Jinwoo with purple aura in Solo Leveling",
-    intro: "WATCH below first. Jinwoo is back and he is NOT playing. Season 2 has the craziest fights in anime right now.",
-    list: ["Jinwoo vs Ant King - The fight that broke the internet", "Arise! - The most iconic moment in anime", "Jinwoo's new shadow army is crazy", "The animation is pure fire", "If you haven't watched Solo Leveling, start TODAY"],
-    outro: "Is Jinwoo the strongest anime character now? Tell us in the comments!",
-    videoUrl: "https://www.youtube.com/embed/0kYvYpV8_8k",
+    intro: "A boy with no power becomes the greatest hero!",
+    body: "Deku had nothing, but he had heart. Just like many of us in Kenya, he proved that hard work beats talent.",
+    tags: ["My Hero Academia"],
+    video: "https://www.youtube.com/embed/D5fLx2v8yTU"
   },
+  {
+    slug: "death-note-light-vs-L",
+    title: "Death Note: Light Vs L - Who Was Smarter?",
+    date: "2026-11-25",
+    author: "Anime World Kenya",
+    intro: "The greatest mind game in anime history!",
+    body: "Light Yagami vs L is like chess, but with lives. Every episode makes you think. Who was right? Let's debate in the comments!",
+    tags: ["Death Note"],
+    video: "https://www.youtube.com/embed/9r7J9j5VJ7k"
+  },
+  {
+    slug: "spy-x-family-anya",
+    title: "Spy x Family: Anya Is The Cutest Anime Character Ever",
+    date: "2026-11-25",
+    author: "Anime World Kenya",
+    intro: "Anya's face says everything!",
+    body: "Anya Forger stole our hearts. Her funny faces, her peanuts, her mind-reading - Spy x Family is pure happiness for the whole family.",
+    tags: ["Spy x Family"],
+    video: "https://www.youtube.com/embed/C8d5QvJ1y7Y"
+  },
+  {
+    slug: "haikyuu-volleyball-hype",
+    title: "Haikyuu: The Anime That Made Kenyans Love Volleyball",
+    date: "2026-11-25",
+    author: "Anime World Kenya",
+    intro: "Even if you hate sports, you will love Haikyuu!",
+    body: "Hinata is small but he jumps like a beast! Haikyuu teaches teamwork, never giving up, and believing in yourself.",
+    tags: ["Haikyuu", "Sports"],
+    video: "https://www.youtube.com/embed/JOGp2c7K4aU"
+  },
+  {
+    slug: "chainsaw-man-denji",
+    title: "Chainsaw Man: Is Denji The Craziest MC Ever?",
+    date: "2026-11-25",
+    author: "Anime World Kenya",
+    intro: "A boy who becomes a chainsaw devil!",
+    body: "Chainsaw Man is wild, funny, and bloody. Denji just wants food and a normal life, but the world keeps pulling him into chaos.",
+    tags: ["Chainsaw Man"],
+    video: "https://www.youtube.com/embed/jK2H9f1sE1M"
+  },
+  {
+    slug: "black-clover-asta",
+    title: "Black Clover: Asta Proves Hard Work Beats Magic",
+    date: "2026-11-25",
+    author: "Anime World Kenya",
+    intro: "A boy with NO magic becomes the Wizard King!",
+    body: "Asta has zero magic in a world of magic. But he trains harder than anyone. His story is for every Kenyan who was told they can't make it.",
+    tags: ["Black Clover"],
+    video: "https://www.youtube.com/embed/6kZ-1tZ5e2k"
+  },
+  {
+    slug: "hunter-x-hunter-gon",
+    title: "Hunter x Hunter: The Most Underrated Anime Ever",
+    date: "2026-11-25",
+    author: "Anime World Kenya",
+    intro: "Gon and Killua are the best duo in anime!",
+    body: "Hunter x Hunter has the best fights, best villains, and best story. If you slept on this anime, wake up now!",
+    tags: ["Hunter x Hunter"],
+    video: "https://www.youtube.com/embed/d6kBeJj9zCs"
+  },
+  {
+    slug: "bleach-ichigo-bankai",
+    title: "Bleach: Ichigo's Bankai Still Gives Goosebumps",
+    date: "2026-11-25",
+    author: "Anime World Kenya",
+    intro: "Bankai! The word that made us all shout!",
+    body: "Bleach is back and better than ever. Ichigo vs Byakuya, Ichigo vs Ulquiorra - these fights are legendary.",
+    tags: ["Bleach"],
+    video: "https://www.youtube.com/embed/78xL0Q1k0bE"
+  },
+  {
+    slug: "anime-in-kenya-community",
+    title: "Anime In Kenya Is Growing Fast - And We Are Proud!",
+    date: "2026-11-25",
+    author: "Anime World Kenya",
+    intro: "From Nairobi to Kisumu, anime fans are everywhere!",
+    body: "Anime conventions, cosplay, watch parties - Kenya's anime community is growing every day. We are not alone anymore. We are Anime World Kenya!",
+    tags: ["Kenya", "Community"],
+    video: "https://www.youtube.com/embed/9B1X9v7J5L8"
+  }
 ];
-
-export function getPost(slug: string): Post | undefined {
-  return posts.find((p) => p.slug === slug);
-}
-
-export function latestPosts(count: number): Post[] {
-  return [...posts].sort((a, b) => b.date.localeCompare(a.date)).slice(0, count);
-}
-
-export function formatPostDate(date: string): string {
-  return new Date(`${date}T00:00:00`).toLocaleDateString("en-KE", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
-
-export function postExcerpt(post: Post): string {
-  return post.intro;
-}
