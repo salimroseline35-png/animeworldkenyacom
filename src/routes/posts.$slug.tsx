@@ -1,5 +1,5 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import { ArrowLeft, CalendarDays, MessageCircleHeart, Search } from "lucide-react";
+import { ArrowLeft, CalendarDays, MessageCircleHeart } from "lucide-react";
 
 import { PostComments } from "@/components/site/post-comments";
 import { Badge } from "@/components/ui/badge";
@@ -33,8 +33,6 @@ export const Route = createFileRoute("/posts/$slug")({
   component: PostPage,
 });
 
-const rankColors = ["bg-secondary", "bg-primary text-primary-foreground", "bg-accent", "bg-kenya text-kenya-foreground", "bg-paper"];
-
 function PostPage() {
   const post = Route.useLoaderData();
 
@@ -65,42 +63,17 @@ function PostPage() {
 
       <p className="mt-6 text-lg font-bold sm:text-xl">{post.intro}</p>
 
-      {post.list.length > 0 && (
-        <ol className="mt-6 grid gap-3">
-          {post.list.map((title, i) => (
-            <li key={title}>
-              <Link
-                to="/browse"
-                search={{ q: title, sort: "trending", page: 1 }}
-                className="sticker pop-hover flex items-center gap-4 rounded-2xl bg-paper p-3 sm:p-4"
-              >
-                <span
-                  className={`sticker grid size-12 shrink-0 place-items-center rounded-xl font-display text-xl ${rankColors[i % rankColors.length]} ${i % 2 ? "rotate-3" : "-rotate-3"}`}
-                >
-                  {i + 1}
-                </span>
-                <span className="flex-1 text-lg font-extrabold sm:text-xl">{title}</span>
-                <span className="inline-flex items-center gap-1 text-sm font-bold text-muted-foreground">
-                  <Search className="size-4" />
-                  <span className="hidden sm:inline">Find it</span>
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ol>
-      )}
+      <p className="mt-4 text-base font-semibold text-muted-foreground sm:text-lg">{post.body}</p>
 
-      {post.outro && (
-        <div className="sticker mt-8 flex items-center gap-4 rounded-3xl bg-secondary p-5 sm:p-6">
-          <span className="sticker grid size-12 shrink-0 -rotate-6 place-items-center rounded-2xl bg-primary text-primary-foreground">
-            <MessageCircleHeart className="size-6" />
-          </span>
-          <p className="flex-1 text-lg font-extrabold sm:text-xl">{post.outro}</p>
-          <Button asChild variant="paper" className="hidden shrink-0 sm:inline-flex">
-            <a href="#comments">Comment</a>
-          </Button>
-        </div>
-      )}
+      <div className="sticker mt-8 flex items-center gap-4 rounded-3xl bg-secondary p-5 sm:p-6">
+        <span className="sticker grid size-12 shrink-0 -rotate-6 place-items-center rounded-2xl bg-primary text-primary-foreground">
+          <MessageCircleHeart className="size-6" />
+        </span>
+        <p className="flex-1 text-lg font-extrabold sm:text-xl">Which one is your number 1? Comment below!</p>
+        <Button asChild variant="paper" className="hidden shrink-0 sm:inline-flex">
+          <a href="#comments">Comment</a>
+        </Button>
+      </div>
 
            {post.videoUrl && (
         <div className="mt-8">

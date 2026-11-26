@@ -1,4 +1,27 @@
-export const POSTS = [
+export type Post = {
+  slug: string;
+  title: string;
+  date: string;
+  author: string;
+  intro: string;
+  body: string;
+  tags: string[];
+  image: string;
+  imageAlt: string;
+  videoUrl: string;
+};
+
+/** Cover picture for a YouTube video, in 16:9 so it fills the post cards. */
+function thumb(videoId: string) {
+  return `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+}
+
+/** Build a youtube.com/embed URL from a video id. */
+function embed(videoId: string) {
+  return `https://www.youtube.com/embed/${videoId}`;
+}
+
+export const posts: Post[] = [
   {
     slug: "demon-slayer-fights",
     title: "Top 5 Demon Slayer Fights That Gave Us Goosebumps",
@@ -7,7 +30,9 @@ export const POSTS = [
     intro: "Demon Slayer is not just an anime, it is a full experience.",
     body: "From Tanjiro vs Rui to the Infinity Castle, these fights made us scream in our houses in Kisumu and Nairobi. The animation, the music, the emotion - no other anime does it like this.",
     tags: ["Demon Slayer", "Top 5"],
-    video: "https://www.youtube.com/embed/ATJYac_dORw"
+    image: thumb("x7uLutVRBfI"),
+    imageAlt: "Demon Slayer Infinity Castle video cover",
+    videoUrl: embed("x7uLutVRBfI"),
   },
   {
     slug: "best-anime-with-friends",
@@ -17,7 +42,9 @@ export const POSTS = [
     intro: "Watching anime alone is good, but with your best friend? 10x better!",
     body: "Haikyuu, Jujutsu Kaisen, and Spy x Family are perfect for group watch. Bring popcorn, bring sodas, and get ready to argue about who is the best character.",
     tags: ["Friends", "Recommendations"],
-    video: "https://www.youtube.com/embed/5R6x4f1r-7A"
+    image: thumb("KJVwP8ioVRw"),
+    imageAlt: "Best anime to watch with your friends video cover",
+    videoUrl: embed("KJVwP8ioVRw"),
   },
   {
     slug: "top-5-anime-every-kenyan",
@@ -27,7 +54,9 @@ export const POSTS = [
     intro: "If you live in Kenya and you love anime, you MUST watch these 5.",
     body: "Naruto teaches never give up. One Piece teaches friendship. Attack on Titan teaches freedom. These stories feel like our own hustle in Kenya.",
     tags: ["Kenya", "Top 5"],
-    video: "https://www.youtube.com/embed/OvLx2I09eXk"
+    image: thumb("wyiZWYMilgk"),
+    imageAlt: "Top 5 anime every Kenyan should watch video cover",
+    videoUrl: embed("wyiZWYMilgk"),
   },
   {
     slug: "top-5-anime-movies",
@@ -37,7 +66,9 @@ export const POSTS = [
     intro: "Some anime movies are better than Hollywood movies!",
     body: "Your Name, Spirited Away, A Silent Voice, Jujutsu Kaisen 0, and Demon Slayer Mugen Train. If you have not watched these, you are missing out big time.",
     tags: ["Movies", "Top 5"],
-    video: "https://www.youtube.com/embed/So8ZITpWcXk"
+    image: thumb("QczGoCmX-pI"),
+    imageAlt: "Top 5 best anime movies of all time video cover",
+    videoUrl: embed("QczGoCmX-pI"),
   },
   {
     slug: "top-5-anime-villains-right",
@@ -47,7 +78,9 @@ export const POSTS = [
     intro: "Sometimes the villain makes more sense than the hero!",
     body: "Pain from Naruto, Eren Yeager, Light Yagami - they wanted to change a broken world. Were they wrong? Or were they just too honest?",
     tags: ["Villains", "Top 5"],
-    video: "https://www.youtube.com/embed/J2rS2dN8z-8"
+    image: thumb("-G9BqkgZXRA"),
+    imageAlt: "Anime villains who were actually right video cover",
+    videoUrl: embed("-G9BqkgZXRA"),
   },
   {
     slug: "top-5-naruto-moments",
@@ -57,7 +90,9 @@ export const POSTS = [
     intro: "Naruto is the anime that raised all of us in Kenya.",
     body: "Jiraiya's death, Naruto meeting his mother, Itachi's truth, Lee vs Gaara - we cried like babies. Naruto taught us never to give up, even when life is hard.",
     tags: ["Naruto", "Top 5"],
-    video: "https://www.youtube.com/embed/bL3M2k5tT0E"
+    image: thumb("YXBsw73_zpk"),
+    imageAlt: "Iconic Naruto moments video cover",
+    videoUrl: embed("YXBsw73_zpk"),
   },
   {
     slug: "one-piece-kenya-hype",
@@ -67,7 +102,9 @@ export const POSTS = [
     intro: "1000+ episodes and still we are not tired!",
     body: "Luffy is like a Kenyan hustler - he never gives up on his dream. The crew is family. If you start One Piece today, you will be hooked for life.",
     tags: ["One Piece"],
-    video: "https://www.youtube.com/embed/S8_YwFLCh4U"
+    image: thumb("6XsEtyeEdag"),
+    imageAlt: "One Piece video cover",
+    videoUrl: embed("6XsEtyeEdag"),
   },
   {
     slug: "attack-on-titan-ending-explained",
@@ -77,7 +114,9 @@ export const POSTS = [
     intro: "The ending broke the whole internet!",
     body: "Eren wanted freedom for his friends, but at what cost? Let's break down the final episode in simple words every fan can understand.",
     tags: ["Attack on Titan"],
-    video: "https://www.youtube.com/embed/MGRm4IzK1SQ"
+    image: thumb("zVXKN5pxbcI"),
+    imageAlt: "Attack on Titan ending explained video cover",
+    videoUrl: embed("zVXKN5pxbcI"),
   },
   {
     slug: "jujutsu-kaisen-gojo-vs-sukuna",
@@ -87,7 +126,9 @@ export const POSTS = [
     intro: "The strongest vs the King of Curses!",
     body: "Gojo vs Sukuna was not just a fight, it was history. Domain Expansion, Hollow Purple, Mahoraga - this fight had everything.",
     tags: ["Jujutsu Kaisen"],
-    video: "https://www.youtube.com/embed/UPR5w3-4z-o"
+    image: thumb("S-XxKVxZ2fU"),
+    imageAlt: "Gojo versus Sukuna fight video cover",
+    videoUrl: embed("S-XxKVxZ2fU"),
   },
   {
     slug: "solo-leveling-sung-jinwoo",
@@ -97,7 +138,9 @@ export const POSTS = [
     intro: "From weakest hunter to Shadow Monarch!",
     body: "Sung Jinwoo started as nobody. Now he is the strongest. His glow-up is the biggest motivation for every Kenyan youth hustling.",
     tags: ["Solo Leveling"],
-    video: "https://www.youtube.com/embed/YvGSK8mI0YQ"
+    image: thumb("PKHQuQF1S8k"),
+    imageAlt: "Solo Leveling Sung Jinwoo video cover",
+    videoUrl: embed("PKHQuQF1S8k"),
   },
   {
     slug: "dragon-ball-z-goku-kenya",
@@ -107,7 +150,9 @@ export const POSTS = [
     intro: "We grew up watching Goku on TV!",
     body: "Goku vs Vegeta, Goku vs Frieza, Goku vs Cell - every Kenyan kid knows Kamehameha! Dragon Ball Z is the father of all anime.",
     tags: ["Dragon Ball"],
-    video: "https://www.youtube.com/embed/yWgWhu5W9Lk"
+    image: thumb("VEjVqXiiUNY"),
+    imageAlt: "Goku transformations video cover",
+    videoUrl: embed("VEjVqXiiUNY"),
   },
   {
     slug: "my-hero-academia-deku",
@@ -117,7 +162,9 @@ export const POSTS = [
     intro: "A boy with no power becomes the greatest hero!",
     body: "Deku had nothing, but he had heart. Just like many of us in Kenya, he proved that hard work beats talent.",
     tags: ["My Hero Academia"],
-    video: "https://www.youtube.com/embed/D5fLx2v8yTU"
+    image: thumb("RYI-WG_HFV8"),
+    imageAlt: "My Hero Academia Deku video cover",
+    videoUrl: embed("RYI-WG_HFV8"),
   },
   {
     slug: "death-note-light-vs-L",
@@ -127,7 +174,9 @@ export const POSTS = [
     intro: "The greatest mind game in anime history!",
     body: "Light Yagami vs L is like chess, but with lives. Every episode makes you think. Who was right? Let's debate in the comments!",
     tags: ["Death Note"],
-    video: "https://www.youtube.com/embed/9r7J9j5VJ7k"
+    image: thumb("_f6-MqeqhN4"),
+    imageAlt: "Death Note Light versus L video cover",
+    videoUrl: embed("_f6-MqeqhN4"),
   },
   {
     slug: "spy-x-family-anya",
@@ -137,7 +186,9 @@ export const POSTS = [
     intro: "Anya's face says everything!",
     body: "Anya Forger stole our hearts. Her funny faces, her peanuts, her mind-reading - Spy x Family is pure happiness for the whole family.",
     tags: ["Spy x Family"],
-    video: "https://www.youtube.com/embed/C8d5QvJ1y7Y"
+    image: thumb("AwaHrHMgz5Q"),
+    imageAlt: "Spy x Family Anya video cover",
+    videoUrl: embed("AwaHrHMgz5Q"),
   },
   {
     slug: "haikyuu-volleyball-hype",
@@ -147,7 +198,9 @@ export const POSTS = [
     intro: "Even if you hate sports, you will love Haikyuu!",
     body: "Hinata is small but he jumps like a beast! Haikyuu teaches teamwork, never giving up, and believing in yourself.",
     tags: ["Haikyuu", "Sports"],
-    video: "https://www.youtube.com/embed/JOGp2c7K4aU"
+    image: thumb("GDMXGzjJzS4"),
+    imageAlt: "Haikyuu volleyball video cover",
+    videoUrl: embed("GDMXGzjJzS4"),
   },
   {
     slug: "chainsaw-man-denji",
@@ -157,7 +210,9 @@ export const POSTS = [
     intro: "A boy who becomes a chainsaw devil!",
     body: "Chainsaw Man is wild, funny, and bloody. Denji just wants food and a normal life, but the world keeps pulling him into chaos.",
     tags: ["Chainsaw Man"],
-    video: "https://www.youtube.com/embed/jK2H9f1sE1M"
+    image: thumb("sqtIagL463A"),
+    imageAlt: "Chainsaw Man Denji video cover",
+    videoUrl: embed("sqtIagL463A"),
   },
   {
     slug: "black-clover-asta",
@@ -167,7 +222,9 @@ export const POSTS = [
     intro: "A boy with NO magic becomes the Wizard King!",
     body: "Asta has zero magic in a world of magic. But he trains harder than anyone. His story is for every Kenyan who was told they can't make it.",
     tags: ["Black Clover"],
-    video: "https://www.youtube.com/embed/6kZ-1tZ5e2k"
+    image: thumb("OdQrlp3uYQM"),
+    imageAlt: "Black Clover Asta video cover",
+    videoUrl: embed("OdQrlp3uYQM"),
   },
   {
     slug: "hunter-x-hunter-gon",
@@ -177,7 +234,9 @@ export const POSTS = [
     intro: "Gon and Killua are the best duo in anime!",
     body: "Hunter x Hunter has the best fights, best villains, and best story. If you slept on this anime, wake up now!",
     tags: ["Hunter x Hunter"],
-    video: "https://www.youtube.com/embed/d6kBeJj9zCs"
+    image: thumb("d6kBeJjTGnY"),
+    imageAlt: "Hunter x Hunter Gon and Killua video cover",
+    videoUrl: embed("d6kBeJjTGnY"),
   },
   {
     slug: "bleach-ichigo-bankai",
@@ -187,7 +246,9 @@ export const POSTS = [
     intro: "Bankai! The word that made us all shout!",
     body: "Bleach is back and better than ever. Ichigo vs Byakuya, Ichigo vs Ulquiorra - these fights are legendary.",
     tags: ["Bleach"],
-    video: "https://www.youtube.com/embed/78xL0Q1k0bE"
+    image: thumb("1HBGXgjZEGk"),
+    imageAlt: "Bleach Ichigo Bankai video cover",
+    videoUrl: embed("1HBGXgjZEGk"),
   },
   {
     slug: "anime-in-kenya-community",
@@ -197,6 +258,31 @@ export const POSTS = [
     intro: "From Nairobi to Kisumu, anime fans are everywhere!",
     body: "Anime conventions, cosplay, watch parties - Kenya's anime community is growing every day. We are not alone anymore. We are Anime World Kenya!",
     tags: ["Kenya", "Community"],
-    video: "https://www.youtube.com/embed/9B1X9v7J5L8"
-  }
+    image: thumb("HGCsAcFzaFw"),
+    imageAlt: "Anime in Kenya community video cover",
+    videoUrl: embed("HGCsAcFzaFw"),
+  },
 ];
+
+/** Newest first. */
+export function latestPosts(limit = 3): Post[] {
+  return [...posts].sort((a, b) => b.date.localeCompare(a.date)).slice(0, limit);
+}
+
+export function getPost(slug: string): Post | undefined {
+  return posts.find((p) => p.slug === slug);
+}
+
+export function formatPostDate(date: string): string {
+  const d = new Date(`${date}T12:00:00`);
+  if (Number.isNaN(d.getTime())) return date;
+  return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+}
+
+export function postExcerpt(post: Post, max = 180): string {
+  const text = `${post.intro} ${post.body}`.trim();
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  const at = Math.max(cut.lastIndexOf(" "), cut.lastIndexOf("."));
+  return `${cut.slice(0, at > 40 ? at : max).trimEnd()}.`;
+}
