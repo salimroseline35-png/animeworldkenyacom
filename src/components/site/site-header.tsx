@@ -29,6 +29,12 @@ export function SiteHeader() {
             Home
           </Link>
           <Link
+            to="/watch"
+            className="sticker pop-hover inline-flex items-center gap-1.5 rounded-full bg-kenya px-3 py-2 text-kenya-foreground sm:px-4"
+          >
+            ▶️ <span className="hidden sm:inline">Watch Anime</span>
+          </Link>
+          <Link
             to="/match"
             className="sticker pop-hover inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-2 text-primary-foreground sm:px-4"
           >

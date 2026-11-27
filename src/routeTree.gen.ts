@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BrowseRouteImport } from './routes/browse'
 import { Route as MatchRouteImport } from './routes/match'
+import { Route as WatchRouteImport } from './routes/watch'
 import { Route as AnimeIdRouteImport } from './routes/anime.$id'
 import { Route as PostsIndexRouteImport } from './routes/posts.index'
 import { Route as PostsSlugRouteImport } from './routes/posts.$slug'
@@ -29,6 +30,11 @@ const BrowseRoute = BrowseRouteImport.update({
 const MatchRoute = MatchRouteImport.update({
   id: '/match',
   path: '/match',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WatchRoute = WatchRouteImport.update({
+  id: '/watch',
+  path: '/watch',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AnimeIdRoute = AnimeIdRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/browse': typeof BrowseRoute
   '/match': typeof MatchRoute
+  '/watch': typeof WatchRoute
   '/anime/$id': typeof AnimeIdRoute
   '/posts/$slug': typeof PostsSlugRoute
   '/posts/': typeof PostsIndexRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/browse': typeof BrowseRoute
   '/match': typeof MatchRoute
+  '/watch': typeof WatchRoute
   '/anime/$id': typeof AnimeIdRoute
   '/posts/$slug': typeof PostsSlugRoute
   '/posts': typeof PostsIndexRoute
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/browse': typeof BrowseRoute
   '/match': typeof MatchRoute
+  '/watch': typeof WatchRoute
   '/anime/$id': typeof AnimeIdRoute
   '/posts/$slug': typeof PostsSlugRoute
   '/posts/': typeof PostsIndexRoute
@@ -75,14 +84,28 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/browse' | '/match' | '/anime/$id' | '/posts/$slug' | '/posts/'
+    | '/'
+    | '/browse'
+    | '/match'
+    | '/watch'
+    | '/anime/$id'
+    | '/posts/$slug'
+    | '/posts/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/browse' | '/match' | '/anime/$id' | '/posts/$slug' | '/posts'
+  to:
+    | '/'
+    | '/browse'
+    | '/match'
+    | '/watch'
+    | '/anime/$id'
+    | '/posts/$slug'
+    | '/posts'
   id:
     | '__root__'
     | '/'
     | '/browse'
     | '/match'
+    | '/watch'
     | '/anime/$id'
     | '/posts/$slug'
     | '/posts/'
@@ -92,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BrowseRoute: typeof BrowseRoute
   MatchRoute: typeof MatchRoute
+  WatchRoute: typeof WatchRoute
   AnimeIdRoute: typeof AnimeIdRoute
   PostsSlugRoute: typeof PostsSlugRoute
   PostsIndexRoute: typeof PostsIndexRoute
@@ -118,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/match'
       fullPath: '/match'
       preLoaderRoute: typeof MatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/watch': {
+      id: '/watch'
+      path: '/watch'
+      fullPath: '/watch'
+      preLoaderRoute: typeof WatchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/anime/$id': {
@@ -148,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BrowseRoute: BrowseRoute,
   MatchRoute: MatchRoute,
+  WatchRoute: WatchRoute,
   AnimeIdRoute: AnimeIdRoute,
   PostsSlugRoute: PostsSlugRoute,
   PostsIndexRoute: PostsIndexRoute,
