@@ -272,33 +272,3 @@ export async function resolveTitles(titles: string[]): Promise<(AnimeCard | null
   });
 }
 
-export type WatchFilter = "all" | "Action" | "Romance" | "Comedy" | "trending";
-export type WatchAnime = AnimeCard & { trailer: { id: string; site: string } | null };
-
-/** Anime with an official YouTube trailer (from AniList), for the /watch page. */
-export const watchQuery = (filter: WatchFilter, q: string) =>
-  queryOptions({
-    ...requestOptions,
-    queryKey: ["watch", filter, q],
-    initialData: () =>
-      POPULAR_ANIME.filter(
-        (a) =>
-          a.trailer?.site === "youtube" &&
-          (filter === "all" || filter === "trending" || a.genres.includes(filter)) &&
-          (!q || `${a.title.english ?? ""} ${a.title.romaji ?? ""}`.toLowerCase().includes(q.toLowerCase())),
-      ) as WatchAnime[],
-    initialDataUpdatedAt: 0,
-    staleTime: 5 * 60_000,
-    queryFn: async ({ signal }) => {
-      const genre = filter === "all" || filter === "trending" ? undefined : filter;
-      const sort = q ? ["SEARCH_MATCH"] : [filter === "trending" ? "TRENDING_DESC" : "POPULARITY_DESC"];
-      const data = await anilist<{ Page: { media: WatchAnime[] } }>(
-        `query ($search: String, $genre: String, $sort: [MediaSort]) {
-          Page(perPage: 30) { media(type: ANIME, search: $search, genre: $genre, sort: $sort, isAdult: false) { ${CARD_FIELDS} trailer { id site } } }
-        }`,
-        { search: q || undefined, genre, sort },
-        signal,
-      );
-      return data.Page.media.filter((a) => a.trailer?.site === "youtube" && a.trailer.id);
-    },
-  });
